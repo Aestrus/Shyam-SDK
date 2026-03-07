@@ -1,0 +1,35 @@
+{
+  "name": "shyam-sdk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run tests/unit",
+    "test:integration": "vitest run tests/integration",
+    "test:watch": "vitest tests/unit",
+    "demo": "npx tsx examples/demo.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aestrus/Shyam-SDK.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Aestrus/Shyam-SDK/issues"
+  },
+  "homepage": "https://github.com/Aestrus/Shyam-SDK#readme",
+  "devDependencies": {
+    "@types/node": "^25.3.5",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
+  }
+}
