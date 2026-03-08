@@ -17,9 +17,7 @@ export class HttpClient {
     constructor(config: LotrClientConfig, fetchFn: typeof fetch = fetch) {
         const apiKey = config.apiKey ?? process.env['LOTR_API_KEY'];
         if (!apiKey) {
-            throw new Error(
-                'API key is required. Pass apiKey in config or set LOTR_API_KEY environment variable.'
-            );
+            throw new AuthenticationError();
         }
         this.apiKey = apiKey;
         this.baseUrl = config.baseUrl ?? 'https://the-one-api.dev/v2';
@@ -55,7 +53,6 @@ export class HttpClient {
         const response = await this.fetchFn(url, {
             headers: {
                 Authorization: `Bearer ${this.apiKey}`,
-                'Content-Type': 'application/json',
             },
         });
 

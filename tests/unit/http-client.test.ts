@@ -18,7 +18,7 @@ describe('HttpClient — constructor', () => {
         const original = process.env['LOTR_API_KEY'];
         delete process.env['LOTR_API_KEY'];
 
-        expect(() => new HttpClient({}, vi.fn() as unknown as typeof fetch)).toThrow('API key is required');
+        expect(() => new HttpClient({}, vi.fn() as unknown as typeof fetch)).toThrow(AuthenticationError);
 
         process.env['LOTR_API_KEY'] = original;
     });

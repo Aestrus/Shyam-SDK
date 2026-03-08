@@ -45,7 +45,7 @@ const client = new LotrClient();
 const movies = await client.movies.list();
 console.log(movies.docs);
 
-const quote = await client.quotes.getById('5cd96e05de30eff6ebccec8a');
+const quote = await client.quotes.getById('5cd96e05de30eff6ebcce7e9');
 console.log(quote.dialog); // "You shall not pass!"
 ```
 
@@ -62,9 +62,9 @@ console.log(movie.name);        // "The Fellowship of the Ring"
 console.log(quotes[0]?.dialog); // first quote
 
 // Quote with full movie details embedded
-const result = await client.quotes.getWithMovie('5cd96e05de30eff6ebccec8a');
+const result = await client.quotes.getWithMovie('5cd96e05de30eff6ebcce7e9');
 console.log(result.dialog);            // "You shall not pass!"
-console.log(result.movieDetails.name); // "The Two Towers"
+console.log(result.movieDetails.name); // "The Fellowship of the Ring"
 
 // Find a movie by name (no ID required)
 const movie = await client.movies.findByName('The Two Towers');
@@ -128,11 +128,6 @@ Iterate all records without managing pagination:
 // All movies
 for await (const movie of client.movies.all()) {
   console.log(movie.name);
-}
-
-// All quotes from a specific movie
-for await (const quote of client.movies.getQuotes('5cd95395de30eff6ebccde5b')) {
-  console.log(quote.dialog);
 }
 
 // With filter

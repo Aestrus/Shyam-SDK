@@ -116,7 +116,7 @@ export class QuotesClient {
      * @example
      * ```ts
      * // Get a specific quote
-     * const quote = await client.quotes.getById('5cd96e05de30eff6ebccec8a');
+     * const quote = await client.quotes.getById('5cd96e05de30eff6ebcce7e9');
      * console.log(quote.dialog); // "You shall not pass!"
      * console.log(quote.character); // character ID
      * console.log(quote.movie); // movie ID
@@ -156,10 +156,10 @@ export class QuotesClient {
      *
      * @example
      * ```ts
-     * const result = await client.quotes.getWithMovie('5cd96e05de30eff6ebccec8a');
+     * const result = await client.quotes.getWithMovie('5cd96e05de30eff6ebcce7e9');
      * console.log(result.dialog);               // "You shall not pass!"
-     * console.log(result.movieDetails.name);    // "The Two Towers"
-     * console.log(result.movieDetails.academyAwardWins); // 2
+     * console.log(result.movieDetails.name);    // "The Fellowship of the Ring"
+     * console.log(result.movieDetails.academyAwardWins); // 4
      * ```
      */
     async getWithMovie(quoteId: string): Promise<QuoteWithMovie> {

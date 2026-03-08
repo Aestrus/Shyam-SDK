@@ -194,6 +194,10 @@ export class MoviesClient {
      * **API Limitation:** Quote retrieval only works for the LotR trilogy.
      * Hobbit movie IDs will return an empty `quotes` array.
      *
+     * **Quote limit:** This method fetches up to 1000 quotes per movie. For the
+     * LotR trilogy the actual count is well under this limit, but if the API ever
+     * returns more, results will be silently truncated at 1000.
+     *
      * @param movieId - The movie ID to fetch
      * @returns An object containing the movie and its quotes
      *

@@ -6,14 +6,14 @@
  * Note that `/movie/{id}/quote` only works for LotR trilogy movies (upstream API limitation).
  *
  * LotR trilogy movie IDs:
- * - The Fellowship of the Ring: `5cd95395de30eff6ebccde5b`
- * - The Two Towers: `5cd95395de30eff6ebccde5c`
+ * - The Two Towers: `5cd95395de30eff6ebccde5b`
+ * - The Fellowship of the Ring: `5cd95395de30eff6ebccde5c`
  * - The Return of the King: `5cd95395de30eff6ebccde5d`
  *
  * @example
  * ```ts
  * const movie: Movie = {
- *   _id: '5cd95395de30eff6ebccde5b',
+ *   _id: '5cd95395de30eff6ebccde5c',
  *   name: 'The Fellowship of the Ring',
  *   runtimeInMinutes: 178,
  *   budgetInMillions: 93,
@@ -56,7 +56,7 @@ export interface Movie {
  * const quote: Quote = {
  *   _id: '5cd96e05de30eff6ebcce7e9',
  *   dialog: 'You shall not pass!',
- *   movie: '5cd95395de30eff6ebccde5b',
+ *   movie: '5cd95395de30eff6ebccde5c',
  *   character: '5cd99d4bde30eff6ebccfea3',
  *   id: '5cd96e05de30eff6ebcce7e9'
  * };

@@ -79,6 +79,13 @@ describe('MoviesClient.getById', () => {
         expect(http.get).toHaveBeenCalledWith('/movie/abc123', undefined);
         expect(movie.name).toBe('The Fellowship of the Ring');
     });
+
+    it('throws NotFoundError when docs is empty', async () => {
+        const http = makeHttpMock({ docs: [], total: 0, limit: 1000, offset: 0, page: 1, pages: 1 });
+        const client = new MoviesClient(http);
+        const { NotFoundError } = await import('../../src/errors.js');
+        await expect(client.getById('bad-id')).rejects.toThrow(NotFoundError);
+    });
 });
 
 describe('MoviesClient.getQuotes', () => {

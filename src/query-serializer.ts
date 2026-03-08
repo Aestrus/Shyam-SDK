@@ -77,8 +77,11 @@ export function serializeQueryOptions(options: {
     pagination?:PaginationOptions
 }): string {
     const reqs: string[] = []
-    
-    if (options.filter) reqs.push(serializeFilter(options.filter));
+
+    if (options.filter) {
+        const serialized = serializeFilter(options.filter);
+        if (serialized) reqs.push(serialized);
+    }
     if (options.sort) reqs.push(serializeSort(options.sort));
     if (options.pagination) reqs.push(serializePagination(options.pagination));
 
