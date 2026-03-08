@@ -1,4 +1,4 @@
-import { AuthenticationError, RateLimitError, NotFoundError, LotrApiError } from "./errors.js";
+import { AuthenticationError, RateLimitError, NotFoundError, ServerError, ValidationError, LotrApiError } from "./errors.js";
 import type { LotrClientConfig } from "./types.js";
 
 interface CacheEntry {
@@ -6,6 +6,7 @@ interface CacheEntry {
     expiresAt: number;
 }
 
+/** @internal */
 export class HttpClient {
     private readonly baseUrl: string;
     private readonly apiKey: string;
@@ -61,6 +62,8 @@ export class HttpClient {
         if (response.status === 401) throw new AuthenticationError();
         if (response.status === 429) throw new RateLimitError();
         if (response.status === 404) throw new NotFoundError();
+        if (response.status === 400) throw new ValidationError();
+        if (response.status === 500) throw new ServerError();
         if (!response.ok) {
             throw new LotrApiError(`Request failed with status ${response.status}`, response.status);
         }

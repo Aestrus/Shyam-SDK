@@ -1,9 +1,8 @@
 import { describe, it, expect, vi } from 'vitest';
 import { HttpClient } from '../../src/http-client.js';
-import { AuthenticationError, RateLimitError, NotFoundError, LotrApiError } from '../../src/errors.js';
+import { AuthenticationError, RateLimitError, NotFoundError, ServerError, ValidationError, LotrApiError } from '../../src/errors.js';
 
 // A helper that builds a fake fetch function returning whatever response shape we need.
-// vi.fn() is Vitest's mock function — like Mockito.mock() in Java.
 function mockFetchWith(status: number, ok: boolean, body: unknown = {}) {
     return vi.fn().mockResolvedValue({
         ok,
@@ -85,10 +84,26 @@ describe('HttpClient — error mapping', () => {
         await expect(client.get('/movie/bad-id')).rejects.toThrow(NotFoundError);
     });
 
-    it('throws LotrApiError for other non-2xx responses', async () => {
+    it('throws ServerError on 500', async () => {
         const client = new HttpClient(
             { apiKey: 'test', cache: { enabled: false } },
             mockFetchWith(500, false) as unknown as typeof fetch
+        );
+        await expect(client.get('/movie')).rejects.toBeInstanceOf(ServerError);
+    });
+
+    it('throws ValidationError on 400', async () => {
+        const client = new HttpClient(
+            { apiKey: 'test', cache: { enabled: false } },
+            mockFetchWith(400, false) as unknown as typeof fetch
+        );
+        await expect(client.get('/movie')).rejects.toBeInstanceOf(ValidationError);
+    });
+
+    it('throws LotrApiError for other non-2xx responses', async () => {
+        const client = new HttpClient(
+            { apiKey: 'test', cache: { enabled: false } },
+            mockFetchWith(503, false) as unknown as typeof fetch
         );
         await expect(client.get('/movie')).rejects.toThrow(LotrApiError);
     });

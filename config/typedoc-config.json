@@ -1,0 +1,29 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["../src/index.ts"],
+  "out": "../docs/api",
+  "exclude": ["../**/*.test.ts", "../**/*.spec.ts", "../tests/**"],
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "tsconfig": "./typedoc.json",
+  "readme": "none",
+  "hideGenerator": true,
+  "sort": ["source-order"],
+  "kindSortOrder": [
+    "Class",
+    "Interface",
+    "TypeAlias",
+    "Function",
+    "Enum"
+  ],
+  "categorizeByGroup": true,
+  "groupOrder": [
+    "Classes",
+    "Interfaces",
+    "Type Aliases",
+    "*"
+  ],
+  "validation": {
+    "notExported": false
+  }
+}

@@ -8,11 +8,12 @@
     "node": ">=22"
   },
   "scripts": {
-    "build": "tsc --project tsconfig.build.json",
+    "build": "tsc --project config/build.json",
     "test": "vitest run tests/unit",
     "test:integration": "vitest run tests/integration",
     "test:watch": "vitest tests/unit",
-    "demo": "npx tsx examples/demo.ts"
+    "demo": "npx tsx examples/demo.ts",
+    "docs:generate": "typedoc --options config/typedoc-config.json"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "type": "module",
   "bugs": {
     "url": "https://github.com/Aestrus/Shyam-SDK/issues"
@@ -28,8 +29,10 @@
   "homepage": "https://github.com/Aestrus/Shyam-SDK#readme",
   "devDependencies": {
     "@types/node": "^25.3.5",
+    "dotenv": "^17.3.1",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
+    "typedoc": "^0.28.17",
     "vitest": "^4.0.18"
   }
 }

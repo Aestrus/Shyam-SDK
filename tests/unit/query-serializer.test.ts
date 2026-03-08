@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { serializeFilter, serializeSort, serializePagination, serializeQueryOptions } from '../../src/query-serializer.js';
+import { serializeFilter, serializeStringFilter, serializeSort, serializePagination, serializeQueryOptions } from '../../src/query-serializer.js';
 
 
 describe('serializeFilter', () => {
@@ -29,6 +29,53 @@ describe('serializeFilter', () => {
 
     it('returns empty string for empty filter', () => {
         expect(serializeFilter({})).toBe('');
+    });
+
+    it('dispatches StringFilter through serializeFilter', () => {
+        expect(serializeFilter({ name: { neq: 'Frodo' } })).toBe('name!=Frodo');
+    });
+
+    it('dispatches StringFilter include through serializeFilter', () => {
+        expect(serializeFilter({ race: { in: ['Hobbit', 'Human'] } })).toBe('race=Hobbit,Human');
+    });
+});
+
+describe('serializeStringFilter', () => {
+    it('serializes eq as key=value', () => {
+        expect(serializeStringFilter('name', { eq: 'Gandalf' })).toEqual(['name=Gandalf']);
+    });
+
+    it('serializes neq as key!=value', () => {
+        expect(serializeStringFilter('name', { neq: 'Frodo' })).toEqual(['name!=Frodo']);
+    });
+
+    it('serializes in as key=a,b,c', () => {
+        expect(serializeStringFilter('race', { in: ['Hobbit', 'Human'] })).toEqual(['race=Hobbit,Human']);
+    });
+
+    it('serializes nin as key!=a,b,c', () => {
+        expect(serializeStringFilter('race', { nin: ['Orc', 'Goblin'] })).toEqual(['race!=Orc,Goblin']);
+    });
+
+    it('serializes exists:true as the bare key', () => {
+        expect(serializeStringFilter('name', { exists: true })).toEqual(['name']);
+    });
+
+    it('serializes exists:false as !key', () => {
+        expect(serializeStringFilter('name', { exists: false })).toEqual(['!name']);
+    });
+
+    it('serializes regex as key=/pattern/flags', () => {
+        expect(serializeStringFilter('name', { regex: '/foot/i' })).toEqual(['name=/foot/i']);
+    });
+
+    it('serializes regexNegate as key!=/pattern/flags', () => {
+        expect(serializeStringFilter('name', { regexNegate: '/foot/i' })).toEqual(['name!=/foot/i']);
+    });
+
+    it('serializes multiple operators together', () => {
+        const result = serializeStringFilter('race', { in: ['Hobbit'], exists: true });
+        expect(result).toEqual(['race=Hobbit', 'race']);
     });
 });
 

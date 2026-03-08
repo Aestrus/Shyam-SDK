@@ -1,4 +1,8 @@
-import type { NumericFilter, SortOptions, PaginationOptions } from "./types.js";
+import type { NumericFilter, StringFilter, SortOptions, PaginationOptions } from "./types.js";
+
+function isNumericFilter(value: object): boolean {
+    return 'lt' in value || 'gt' in value || 'lte' in value || 'gte' in value;
+}
 
 export function serializeFilter(filter: object): string {
     const reqs: string[] = []
@@ -6,11 +10,30 @@ export function serializeFilter(filter: object): string {
         if (typeof value === 'string') {
             reqs.push(`${key}=${value}`);
         } else if (typeof value === 'object' && value !== null) {
-            reqs.push(...serializeNumericFilter(key, value as NumericFilter));
+            if (isNumericFilter(value)) {
+                reqs.push(...serializeNumericFilter(key, value as NumericFilter));
+            } else {
+                reqs.push(...serializeStringFilter(key, value as StringFilter));
+            }
         }
     }
 
     return reqs.join('&');
+}
+
+export function serializeStringFilter(field: string, filter: StringFilter): string[] {
+    const parts: string[] = [];
+    if (filter.eq !== undefined)           parts.push(`${field}=${filter.eq}`);
+    if (filter.neq !== undefined)          parts.push(`${field}!=${filter.neq}`);
+    if (filter.in !== undefined && filter.in.length > 0)
+                                           parts.push(`${field}=${filter.in.join(',')}`);
+    if (filter.nin !== undefined && filter.nin.length > 0)
+                                           parts.push(`${field}!=${filter.nin.join(',')}`);
+    if (filter.exists === true)            parts.push(field);
+    if (filter.exists === false)           parts.push(`!${field}`);
+    if (filter.regex !== undefined)        parts.push(`${field}=${filter.regex}`);
+    if (filter.regexNegate !== undefined)  parts.push(`${field}!=${filter.regexNegate}`);
+    return parts;
 }
 
 export function serializeNumericFilter(field: string, filter: NumericFilter): string[] {
