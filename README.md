@@ -18,6 +18,8 @@ npm install
 
 Get an API key from [the-one-api.dev](https://the-one-api.dev/sign-up), then:
 
+> **⚠️ Rate Limit:** The API allows 100 requests per 10 minutes. The SDK includes caching (enabled by default) and automatic retry to help manage this limit.
+
 ```bash
 cp .env.example .env
 # Add your LOTR_API_KEY to .env
@@ -26,6 +28,8 @@ cp .env.example .env
 ---
 
 ## Quick Start
+
+> **Note:** This package is not yet published to npm. For local development, use the import path shown below.
 
 ```ts
 import { LotrClient } from './src/index.js';

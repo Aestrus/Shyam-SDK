@@ -1,7 +1,7 @@
 {
   "name": "shyam-sdk",
   "version": "1.0.0",
-  "description": "",
+  "description": "TypeScript SDK for The One API (Lord of the Rings) with filtering, pagination, async iterators, caching, and retry logic",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "engines": {
@@ -19,8 +19,16 @@
     "type": "git",
     "url": "git+https://github.com/Aestrus/Shyam-SDK.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "lotr",
+    "lord-of-the-rings",
+    "api",
+    "sdk",
+    "typescript",
+    "client",
+    "the-one-api"
+  ],
+  "author": "Shyam <contact@example.com>",
   "license": "MIT",
   "type": "module",
   "bugs": {
